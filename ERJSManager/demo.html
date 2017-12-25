@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="http://zeptojs.com/zepto.min.js"></script>
+    <style type="text/css">
+        body{margin: 0px;text-align: center;}
+        div {width:100%;text-align: center;padding: 30px 0;}
+        div:first-child {margin-top: 100px;}
+    </style>
+</head>
+<body>
+
+    <div id='one'>按钮一</div>
+    <div id='two'>按钮二</div>
+    <div id='three'>按钮三</div>
+    <div id='four'>UIWebView特殊回调方法</div>
+    <div id='refresh'>refresh</div>
+
+    <script type="text/javascript">
+    /* global $ */
+    $(document).ready(function () {
+      $('#one').on('click', function () {
+        window.webkit.messageHandlers.app.postMessage(null)
+      })
+
+      $('#two').on('click', function () {
+        window.webkit.messageHandlers.app.postMessage({title: 'title', content: 'content', url: 'http://www.baidu.com'})
+      })
+
+      $('#three').on('click', function () {
+        window.webkit.messageHandlers.app.postMessage('666')
+      })
+
+      $('#four').on('click', function () {
+        // 该交互方式只对 iOS UIWebView有效
+        window.app.call({'title': 'good', 'desc': 'job'})
+      })
+
+      $('#refresh').on('click', function () {
+        window.location.reload()
+      })
+    })
+
+    </script>
+</body>
+</html>

@@ -56,7 +56,13 @@
     
     _wkWebview = wkWebview;
     
-    WKUserScript *userScript = [[WKUserScript alloc] initWithSource:self.jsCode injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+     NSString *sendToken = [NSString stringWithFormat:@"localStorage.setItem(\"accessToken\",'%@'); localStorage.setItem(\"accessToken2\",'%@')",@"74851c23358c", @"666666"];
+    
+    //WKUserScriptInjectionTimeAtDocumentStart：js加载前执行。
+    //WKUserScriptInjectionTimeAtDocumentEnd：js加载后执行。
+    //forMainFrameOnly:NO(全局窗口)，yes（只限主窗口）
+    //思路: 可以利用执行JS将数据保存到localStorage中, 这样可以让Web同步取值
+    WKUserScript *userScript = [[WKUserScript alloc] initWithSource:sendToken injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
     
     WKPreferences *preferences = [[WKPreferences alloc] init];
     
